@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  postgresdb:
+    image: postgres:latest # use latest official postgres version
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres_user
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres_db
+    volumes:
+      - postgresdb-data:/var/lib/postgresql/data/ # persist data even if container shuts down
+      # copy the sql script to create tables
+      - ./db/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+    ports:
+      - 5433:5432
+  mongodb:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb-data:/var/lib/mongodb/data/
+
+
+volumes:
+  postgresdb-data:
+    driver: local
+  mongodb-data:
+    driver: local
