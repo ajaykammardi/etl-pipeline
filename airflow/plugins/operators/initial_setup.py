@@ -1,7 +1,9 @@
+import json
 import pandas as pd
 import psycopg2 as pg
 
 from helpers import SqlQueries
+from pymongo import MongoClient
 
 
 def loadDataToPostgres(**kwargs):
@@ -32,3 +34,14 @@ def loadDataToPostgres(**kwargs):
         print(error)
         dbconnect.rollback()
     cursor.close()
+
+
+def loadDataToMongoDB(**kwargs):
+    client = MongoClient('etl-pipeline_mongodb_1', 27017)
+    db = client['events_db']
+    collection_events = db['events']
+
+    with open('/opt/airflow/data/events.json') as json_file:
+        file_data = json.load(json_file)
+    collection_events.insert_many(file_data)
+    client.close()

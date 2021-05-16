@@ -16,15 +16,24 @@ with DAG(
 ) as dag:
     start_operator = DummyOperator(task_id='Begin_execution')
 
-    setup_target_postgres_ddb = PythonOperator(
+    setup_target_postgres_db = PythonOperator(
         task_id="setup_postgres_db",
         dag=dag,
         provide_context=True,
         python_callable=initial_setup.loadDataToPostgres
     )
 
+    setup_source_mongo_db = PythonOperator(
+        task_id="setup_mongo_db",
+        dag=dag,
+        provide_context=True,
+        python_callable=initial_setup.loadDataToMongoDB
+    )
+
     end_operator = DummyOperator(task_id='Stop_execution', dag=dag)
 
     # DAG dependencies
-    start_operator >> setup_target_postgres_ddb
-    setup_target_postgres_ddb >> end_operator
+    start_operator >> setup_target_postgres_db
+    start_operator >> setup_source_mongo_db
+    setup_target_postgres_db >> end_operator
+    setup_source_mongo_db >> end_operator
