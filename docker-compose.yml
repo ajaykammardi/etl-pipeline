@@ -15,7 +15,6 @@ x-airflow-common:
     ADDITIONAL_PYTHON_DEPS: pymongo
   volumes:
     - ./airflow/dags:/opt/airflow/dags
-    - ./airflow/logs:/opt/airflow/logs
     - ./airflow/plugins:/opt/airflow/plugins
     - ./data:/opt/airflow/data
     - ./airflow/requirements.txt:/requirements.txt
