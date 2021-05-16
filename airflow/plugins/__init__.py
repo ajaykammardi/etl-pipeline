@@ -8,6 +8,9 @@ import helpers
 
 class ETLPlugin(AirflowPlugin):
     name = "etl_plugin"
+    operators = [
+        operators.initial_setup
+    ]
     helpers = [
         helpers.SqlQueries
     ]
