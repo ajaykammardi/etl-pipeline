@@ -15,9 +15,6 @@ etl-pipeline
 └───data                         # Sample data provided  
 |   | events.json                # Events sample data        
 |   | organization.json          # Orgainzation sample data
-│
-└───db                           # Intital Postgres filling scripts 
-|   | create_tables.sql                # Create tables scripts 
 │   
 └───airflow                      # Airflow home
 |   |               
