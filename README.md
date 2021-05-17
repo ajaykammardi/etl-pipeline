@@ -1,7 +1,10 @@
 # etl-pipeline
 
 ## Introduction
-Initial project setup for loading data from various source into Postgres Database.
+Initial project setup for loading data from various source into Postgres Database. 
+The data pipeline performs ELT operation, that is it first loads the data into STAGE TABLE in target from there 
+required Dimension and Facts table are loaded after running Data validation rules. 
+
 
 ## Getting started
 
@@ -9,26 +12,27 @@ Initial project setup for loading data from various source into Postgres Databas
 ### Project structure explanation
 ```
 etl-pipeline
-│   README.md                       # Project description
-│   docker-compose.yml              # Airflow containers description   
-│   requirements.txt                # Python dependencies
+│   README.md                            # Project description
+│   docker-compose.yml                   # Airflow containers description   
+│   requirements.txt                     # Python dependencies
 │
-└───data                            # Sample data provided  
-|   | events.json                   # Events sample data        
-|   | organization.json             # Orgainzation sample data
+└───data                                 # Sample data provided  
+|   | events.json                        # Events sample data        
+|   | organization.json                  # Orgainzation sample data
 │   
-└───airflow                         # Airflow home
+└───airflow                              # Airflow home
 |   |               
-│   └───dags                        
-│   |   │ initial_data_load_dag.py  # DAG definition
+│   └───dags
+│   |   │ data_pipeline_template_dag.py  # DAG definition                        
+│   |   │ initial_data_load_dag.py       # DAG definition
 |   |   |
 |   └───plugins
 │       │  
 |       └───helpers
-|       |   | sql_queries.py        # All sql queries needed
+|       |   | sql_queries.py             # All sql queries needed
 |       |
 |       └───operators
-|       |   | initial_setup.py      # Setting up target and source DB
+|       |   | initial_setup.py           # Setting up target and source DB
 ```
 #### Requirements
 
@@ -74,6 +78,5 @@ Refresh the page and click on the initial_data_load_dag to view the current stat
 
 ---
 **NOTE** 
-* pymongo dependency to be added while building airflow image, which is not done yet so you will see error once logging into airflow UI.
 * Couldn't complete task and Additional Challenge due to time constraint, basic idea is to setup DAGs for loading data and performing Data validations hence providing the initial framework.
 ---
