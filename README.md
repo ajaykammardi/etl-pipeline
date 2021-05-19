@@ -61,7 +61,7 @@ pip install -r requirements.txt  # install requirements
 Everything is configured in the docker-compose.yml file.
 If you are satisfied with the default configurations you can just start the containers.
 ```
-docker-compose up
+docker-compose up -d
 ```
 
 #### Visit the Airflow UI
@@ -71,10 +71,26 @@ Username: airflow
 Password: airflow
 ```
 
-#### Start the DAG
-Start the DAG by switching it state from OFF to ON.
+#### Start the Pipeline
 
-Refresh the page and click on the initial_data_load_dag to view the current state.
+---
+**NOTE:** 
+Initally all the DAG would be in OFF state, Start the DAG by switching it state from OFF to ON.
+---
+####Step 1: Initial Setup DAG (One Time JOB)
+Click on the initial_data_load_dag to view the current state and click on Trigger DAG.
+
+Pipeline would setup target DB (Postgres) and Source DB (MongoDB). It would create all the initial tables and load initial data.
+![Step1](ReadMeImages/Step1.png)
+
+####Step 2: ETL Pipeline
+
+
+#### Cleaning up
+To Stop and delete containers, delete volumes with database data and download images, run:
+```
+docker-compose down --volumes --rmi all
+```
 
 ---
 **NOTE** 

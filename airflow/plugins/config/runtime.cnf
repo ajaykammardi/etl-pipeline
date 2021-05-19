@@ -1,0 +1,12 @@
+[target_postgres_details]
+database: postgres_db
+user: postgres_user
+password: postgres
+host: etl-pipeline_postgresdb_1
+port: 5432
+
+[source_mongo_details]
+host: etl-pipeline_mongodb_1
+port: 27017
+username: root
+password: rootpassword
