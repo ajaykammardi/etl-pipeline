@@ -1,20 +1,24 @@
 import json
+import configparser
 import pandas as pd
 import psycopg2 as pg
 
 from helpers import SqlQueries
 from pymongo import MongoClient
 
+config = configparser.ConfigParser()
+config.read('/opt/airflow/plugins/config/runtime.cnf')
+
 
 def loadDataToPostgres(**kwargs):
     df = pd.read_json('/opt/airflow/data/organization.json')
     try:
         dbconnect = pg.connect(
-            database='postgres_db',
-            user='postgres_user',
-            password='postgres',
-            host='etl-pipeline_postgresdb_1',
-            port='5432'
+            database=config.get('target_postgres_details', 'database'),
+            user=config.get('target_postgres_details', 'user'),
+            password=config.get('target_postgres_details', 'password'),
+            host=config.get('target_postgres_details', 'host'),
+            port=config.get('target_postgres_details', 'port')
         )
     except Exception as error:
         print(error)
@@ -37,7 +41,11 @@ def loadDataToPostgres(**kwargs):
 
 
 def loadDataToMongoDB(**kwargs):
-    client = MongoClient('etl-pipeline_mongodb_1', 27017, username='root', password='rootpassword')
+    client = MongoClient(host=config.get('source_mongo_details', 'host'),
+                         port=config.getint('source_mongo_details', 'port'),
+                         username=config.get('source_mongo_details', 'username'),
+                         password=config.get('source_mongo_details', 'password'))
+
     db = client['events_db']
     collection_events = db['events']
 

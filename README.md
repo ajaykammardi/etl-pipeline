@@ -61,7 +61,7 @@ pip install -r requirements.txt  # install requirements
 Everything is configured in the docker-compose.yml file.
 If you are satisfied with the default configurations you can just start the containers.
 ```
-docker-compose up
+docker-compose up -d
 ```
 
 #### Visit the Airflow UI

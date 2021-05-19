@@ -19,14 +19,12 @@ with DAG(
     setup_target_postgres_db = PythonOperator(
         task_id="setup_postgres_db",
         dag=dag,
-        provide_context=True,
         python_callable=initial_setup.loadDataToPostgres
     )
 
     setup_source_mongo_db = PythonOperator(
         task_id="setup_mongo_db",
         dag=dag,
-        provide_context=True,
         python_callable=initial_setup.loadDataToMongoDB
     )
 

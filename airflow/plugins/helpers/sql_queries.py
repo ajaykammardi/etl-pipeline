@@ -17,6 +17,7 @@ class SqlQueries:
                 user_type varchar(250),
                 organization_name varchar(250),
                 plan_name varchar(250),
-                received_at timestamp
+                received_at timestamp,
+                data_check_failed varchar(1)
             );
         """)
