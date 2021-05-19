@@ -28,6 +28,9 @@ etl-pipeline
 |   |   |
 |   └───plugins
 │       │  
+|       └───config                       # Config folder
+|       |   | runtime.cnf
+|       | 
 |       └───helpers
 |       |   | sql_queries.py             # All sql queries needed
 |       |
