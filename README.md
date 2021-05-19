@@ -77,13 +77,13 @@ Password: airflow
 **NOTE:** 
 Initally all the DAG would be in OFF state, Start the DAG by switching it state from OFF to ON.
 ---
-####Step 1: Initial Setup DAG (One Time JOB)
+#### Step 1: Initial Setup DAG (One Time JOB)
 Click on the initial_data_load_dag to view the current state and click on Trigger DAG.
 
 Pipeline would setup target DB (Postgres) and Source DB (MongoDB). It would create all the initial tables and load initial data.
 ![Step1](ReadMeImages/Step1.png)
 
-####Step 2: ETL Pipeline
+#### Step 2: ETL Pipeline
 
 
 #### Cleaning up
