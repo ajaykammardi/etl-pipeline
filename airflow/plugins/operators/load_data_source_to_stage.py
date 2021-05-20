@@ -1,4 +1,6 @@
 import configparser
+import logging
+
 import pandas as pd
 import psycopg2 as pg
 
@@ -7,6 +9,7 @@ from psycopg2 import extras
 
 config = configparser.ConfigParser()
 config.read('/opt/airflow/plugins/config/runtime.cnf')
+
 
 def loadDataToStage(**context):
     inputdate = context['dag_run'].conf['date']
@@ -36,3 +39,5 @@ def loadDataToStage(**context):
         query = "INSERT INTO %s(%s) VALUES %%s" % ('staging_events', cols)
         extras.execute_values(cursor, query, tuples)
         dbconnect.commit()
+        return 'Validate_events_data_in_stage'
+    return 'Stop_execution'
