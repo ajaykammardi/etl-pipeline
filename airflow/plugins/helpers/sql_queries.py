@@ -66,14 +66,14 @@ class SqlQueries:
             UPDATE public.staging_events
             SET data_validation_failed = 'Y'
             WHERE organization_name IS NULL
-            AND DATE(received_at) = (%s);
+            AND DATE(received_at) = '%s';
         """)
 
     data_validation_rule_user_name_missing = ("""
                 UPDATE public.staging_events
                 SET data_validation_failed = 'Y'
                 WHERE username IS NULL
-                AND DATE(received_at) = (%s);
+                AND DATE(received_at) = '%s';
             """)
 
     update_user_table = ("""
@@ -82,7 +82,7 @@ class SqlQueries:
                 WHERE username||organization_name IN 
                 (SELECT username||organization_name
                 FROM public.staging_events
-                WHERE DATE(received_at) = (%s)
+                WHERE DATE(received_at) = '%s'
                 AND data_validation_failed IS NULL);
     
     """)
@@ -99,7 +99,7 @@ class SqlQueries:
             FROM public.staging_events,
             public.dim_organization
             WHERE public.staging_events.organization_name = public.dim_organization.organization_name
-            AND DATE(received_at) = (%s)
+            AND DATE(received_at) = '%s'
             AND data_validation_failed IS NULL;
     """)
 
@@ -111,7 +111,7 @@ class SqlQueries:
             FROM public.staging_events,
             public.user
             WHERE public.staging_events.username = public.user.username
-            AND DATE(received_at) = (%s)
+            AND DATE(received_at) = '%s'
             AND data_validation_failed IS NULL
             AND public.user.is_active = 'Y';
             """)
@@ -119,7 +119,7 @@ class SqlQueries:
     load_data_into_fact_table = ("""
                     INSERT INTO public.org_user_report
                     SELECT public.dim_organization.id AS organization_id,
-                        MAX((%s)) AS event_date,
+                        MAX('%s') AS event_date,
                         COUNT(user_created) AS user_created,
                         COUNT(user_updated) AS user_updated,
                         COUNT(user_deleted) AS user_deleted
@@ -138,7 +138,7 @@ class SqlQueries:
                                 ELSE 0
                                 END AS user_deleted 
                                 FROM public.staging_events
-                                WHERE DATE(public.staging_events.received_at) = (%s)
+                                WHERE DATE(public.staging_events.received_at) = '%s'
                                 AND data_validation_failed IS NULL
                         ) temp_tab,
                         public.dim_organization

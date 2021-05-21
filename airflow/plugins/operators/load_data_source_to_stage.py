@@ -1,6 +1,4 @@
 import configparser
-import logging
-
 import pandas as pd
 import psycopg2 as pg
 
