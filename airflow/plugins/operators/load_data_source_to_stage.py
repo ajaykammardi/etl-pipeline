@@ -39,5 +39,5 @@ def loadDataToStage(**context):
         query = "INSERT INTO %s(%s) VALUES %%s" % ('staging_events', cols)
         extras.execute_values(cursor, query, tuples)
         dbconnect.commit()
-        return 'Validate_events_data_in_stage'
+        return 'Validate_data_in_stage'
     return 'Stop_execution'
