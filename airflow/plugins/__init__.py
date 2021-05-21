@@ -10,7 +10,10 @@ class ETLPlugin(AirflowPlugin):
     name = "etl_plugin"
     operators = [
         operators.initial_setup,
-        operators.load_data_source_to_stage
+        operators.load_data_source_to_stage,
+        operators.data_validation,
+        operators.dimension_load,
+        operators.aggregation_table_load
     ]
     helpers = [
         helpers.SqlQueries

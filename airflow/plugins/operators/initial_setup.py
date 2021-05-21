@@ -26,6 +26,9 @@ def loadDataToPostgres(**kwargs):
     cursor = dbconnect.cursor()
     cursor.execute(SqlQueries.target_organization_dimension_table_create)
     cursor.execute(SqlQueries.staging_events_table_create)
+    cursor.execute(SqlQueries.target_organization_report_table_create)
+    cursor.execute(SqlQueries.target_user_dimension_table_create)
+    cursor.execute(SqlQueries.target_user_dimension_history_table_create)
     dbconnect.commit()
     tuples = [tuple(x) for x in df.to_numpy()]
     cols = ','.join(list(df.columns))
