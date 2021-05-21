@@ -108,7 +108,7 @@ class SqlQueries:
             INSERT INTO public.user_events
             (user_id, event_type, created_at)
             SELECT public.dim_user.id AS user_id,
-                    public.staging_events.event_type AS event_type
+                    public.staging_events.event_type AS event_type,
                     received_at AS created_at
             FROM public.staging_events,
             public.dim_user
@@ -123,21 +123,21 @@ class SqlQueries:
                     (organization_id, event_date, user_created_count, user_updated_count, user_deleted_count)
                     SELECT public.dim_organization.id AS organization_id,
                         MAX('%s') AS event_date,
-                        COUNT(user_created) AS user_created_count,
-                        COUNT(user_updated) AS user_updated_count,
-                        COUNT(user_deleted) AS user_deleted_count
+                        SUM(user_created) AS user_created_count,
+                        SUM(user_updated) AS user_updated_count,
+                        SUM(user_deleted) AS user_deleted_count
                     FROM 
                         (SELECT public.staging_events.organization_name AS organization_name,
                                 CASE
-                                WHEN public.staging_events.event_date = 'User Created' THEN 1
+                                WHEN public.staging_events.event_type = 'User Created' THEN 1
                                 ELSE 0
                                 END AS user_created,
                                 CASE
-                                WHEN public.staging_events.event_date = 'User Updated' THEN 1
+                                WHEN public.staging_events.event_type = 'User Updated' THEN 1
                                 ELSE 0
                                 END AS user_updated,
                                 CASE
-                                WHEN public.staging_events.event_date = 'User Deleted' THEN 1
+                                WHEN public.staging_events.event_type = 'User Deleted' THEN 1
                                 ELSE 0
                                 END AS user_deleted 
                                 FROM public.staging_events
