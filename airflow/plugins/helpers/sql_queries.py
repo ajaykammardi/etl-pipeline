@@ -77,7 +77,7 @@ class SqlQueries:
             """)
 
     update_user_table = ("""
-                UPDATE public.user
+                UPDATE public.dim_user
                 SET is_active = 'N'
                 WHERE username IN 
                 (SELECT username
