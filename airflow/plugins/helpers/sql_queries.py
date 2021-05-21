@@ -38,7 +38,7 @@ class SqlQueries:
             """)
 
     target_user_dimension_table_create = ("""
-                CREATE TABLE IF NOT EXISTS public.user (
+                CREATE TABLE IF NOT EXISTS public.dim_user (
                     id SERIAL UNIQUE,
                     organization_id int,
                     username varchar(250),
@@ -88,7 +88,8 @@ class SqlQueries:
     """)
 
     load_data_into_user_table = ("""
-            INSERT INTO public.user
+            INSERT INTO public.dim_user
+            (organization_id, username, user_email, user_type, plan_name, is_active, created_at)
             SELECT public.dim_organization.id AS organization_id,
                     username,
                     user_email,
@@ -105,24 +106,26 @@ class SqlQueries:
 
     load_data_into_user_event_table = ("""
             INSERT INTO public.user_events
-            SELECT public.user.id AS user_id,
+            (user_id, event_type, created_at)
+            SELECT public.dim_user.id AS user_id,
                     public.staging_events.event_type AS event_type
                     received_at AS created_at
             FROM public.staging_events,
-            public.user
+            public.dim_user
             WHERE public.staging_events.username = public.user.username
             AND DATE(received_at) = '%s'
             AND data_validation_failed IS NULL
-            AND public.user.is_active = 'Y';
+            AND public.dim_user.is_active = 'Y';
             """)
 
     load_data_into_fact_table = ("""
                     INSERT INTO public.org_user_report
+                    (organization_id, event_date, user_created_count, user_updated_count, user_deleted_count)
                     SELECT public.dim_organization.id AS organization_id,
                         MAX('%s') AS event_date,
-                        COUNT(user_created) AS user_created,
-                        COUNT(user_updated) AS user_updated,
-                        COUNT(user_deleted) AS user_deleted
+                        COUNT(user_created) AS user_created_count,
+                        COUNT(user_updated) AS user_updated_count,
+                        COUNT(user_deleted) AS user_deleted_count
                     FROM 
                         (SELECT public.staging_events.organization_name AS organization_name,
                                 CASE
