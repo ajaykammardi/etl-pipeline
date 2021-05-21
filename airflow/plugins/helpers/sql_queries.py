@@ -112,7 +112,7 @@ class SqlQueries:
                     received_at AS created_at
             FROM public.staging_events,
             public.dim_user
-            WHERE public.staging_events.username = public.user.username
+            WHERE public.staging_events.username = public.dim_user.username
             AND DATE(received_at) = '%s'
             AND data_validation_failed IS NULL
             AND public.dim_user.is_active = 'Y';
