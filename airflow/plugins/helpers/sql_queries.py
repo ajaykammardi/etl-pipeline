@@ -122,7 +122,7 @@ class SqlQueries:
                     INSERT INTO public.org_user_report
                     (organization_id, event_date, user_created_count, user_updated_count, user_deleted_count)
                     SELECT public.dim_organization.id AS organization_id,
-                        MAX('%s') AS event_date,
+                        MAX(DATE('%s')) AS event_date,
                         SUM(user_created) AS user_created_count,
                         SUM(user_updated) AS user_updated_count,
                         SUM(user_deleted) AS user_deleted_count
