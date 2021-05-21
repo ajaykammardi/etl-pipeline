@@ -26,3 +26,4 @@ def loadDataToDimensionTables(**context):
     cursor.execute(SqlQueries.load_data_into_user_table % inputdate)
     cursor.execute(SqlQueries.load_data_into_user_event_table % inputdate)
     dbconnect.commit()
+    cursor.close()

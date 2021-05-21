@@ -23,3 +23,4 @@ def loadDataToAggregationTables(**context):
     cursor = dbconnect.cursor()
     cursor.execute(SqlQueries.load_data_into_fact_table % (inputdate, inputdate))
     dbconnect.commit()
+    cursor.close()

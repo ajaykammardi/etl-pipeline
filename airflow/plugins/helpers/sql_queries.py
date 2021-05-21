@@ -79,8 +79,8 @@ class SqlQueries:
     update_user_table = ("""
                 UPDATE public.user
                 SET is_active = 'N'
-                WHERE username||organization_name IN 
-                (SELECT username||organization_name
+                WHERE username IN 
+                (SELECT username
                 FROM public.staging_events
                 WHERE DATE(received_at) = '%s'
                 AND data_validation_failed IS NULL);

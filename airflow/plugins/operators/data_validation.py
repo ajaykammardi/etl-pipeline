@@ -24,3 +24,4 @@ def dataValidation(**context):
     cursor.execute(SqlQueries.data_validation_rule_org_name_missing % inputdate)
     cursor.execute(SqlQueries.data_validation_rule_user_name_missing % inputdate)
     dbconnect.commit()
+    cursor.close()
