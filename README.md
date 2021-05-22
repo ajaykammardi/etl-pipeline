@@ -12,30 +12,36 @@ required Dimension and Facts table are loaded after running Data validation rule
 ### Project structure explanation
 ```
 etl-pipeline
-│   README.md                            # Project description
-│   docker-compose.yml                   # Airflow containers description   
-│   requirements.txt                     # Python dependencies
+│   README.md                                   # Project description
+│   docker-compose.yml                          # Airflow, Postgres and MongoDB containers description 
+│   Dockerfile                                  # Airflow docker file with pymongo installation   
+│   requirements.txt                            # Python dependencies
 │
-└───data                                 # Sample data provided  
-|   | events.json                        # Events sample data        
-|   | organization.json                  # Orgainzation sample data
+└───data                                        # Sample data provided  
+|   | events.json                               # Events sample data        
+|   | organization.json                         # Orgainzation sample data
 │   
-└───airflow                              # Airflow home
+└───airflow                                     # Airflow home
 |   |               
 │   └───dags
-│   |   │ data_pipeline_template_dag.py  # DAG definition                        
-│   |   │ initial_data_load_dag.py       # DAG definition
+│   |   │ data_pipeline_template_dag.py         # DAG definition                        
+│   |   │ initial_data_load_dag.py              # DAG definition
 |   |   |
 |   └───plugins
 │       │  
-|       └───config                       # Config folder
-|       |   | runtime.cnf
+|       └───config                              # Config folder
+|       |   | runtime.cnf                       # Config file
 |       | 
 |       └───helpers
-|       |   | sql_queries.py             # All sql queries needed
+|       |   | sql_queries.py                    # All sql queries needed
 |       |
 |       └───operators
-|       |   | initial_setup.py           # Setting up target and source DB
+|       |   | aggregation_table_load.py         # Loading up aggregate table
+|       |   | data_validation.py                # Data quality checks
+|       |   | dimension_load.py                 # Loading up dimension tables
+|       |   | initial_setup.py                  # Setting up target and source DB
+|       |   | load_data_source_to_stage.py      # Data Extraction from source to stage
+
 ```
 ### Requirements
 
