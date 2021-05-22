@@ -2,7 +2,7 @@
 
 ## Introduction
 Initial project setup for loading data from various source into Postgres Database. 
-The data pipeline performs ELT operation, that is it first loads the data into STAGE TABLE in target from there 
+The data pipeline performs ELT operation, it first loads the data into STAGE TABLE in target from there 
 required Dimension and Facts table are loaded after running Data validation rules. 
 
 
