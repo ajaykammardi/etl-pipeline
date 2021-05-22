@@ -80,12 +80,13 @@ Username: airflow
 Password: airflow
 ```
 
-### Start the Pipeline
+![Step0](read-me-images/Step0.png)
 
 ---
 **NOTE:** 
 Initally all the DAG would be in OFF state, Start the DAG by switching it state from OFF to ON.
 ---
+
 ### Step 1: Initial Setup DAG (One Time JOB)
 Click on the `initial_data_load_dag` to view the current state and click on Trigger(Play button) DAG.
 
@@ -124,6 +125,19 @@ If No data found in source collection for given input date pipeline would termin
 
 ![Step3.2](read-me-images/Step3.2.png)
 
+### Connecting to Postgres from local to check data
+In terminal access the database using psql command
+```
+psql -h localhost -U postgres_user -p 5433 -d postgres_db -W postgres
+```
+or use pgAdmin/ any other GUI tools
+```
+host=localhost
+user=postgres_user
+password=postgres
+port=5433
+database=postgres_db
+```
 
 ### Cleaning up
 To Stop and delete containers, delete volumes with database data and download images, run:
