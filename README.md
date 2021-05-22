@@ -81,13 +81,8 @@ Password: airflow
 ```
 
 ![Step0](read-me-images/Step0.png)
-
-
----
-**NOTE:** 
-Initally all the DAG would be in OFF state, Start the DAG by switching it state from OFF to ON.
----
-
+ 
+> :rocket: Initally all the DAG would be in OFF state, Start the DAG by switching it state from OFF to ON.
 
 ### Step 1: Initial Setup DAG (One Time JOB)
 Click on the `initial_data_load_dag` to view the current state and click on Trigger(Play button) DAG.
@@ -147,7 +142,5 @@ To Stop and delete containers, delete volumes with database data and download im
 docker-compose down --volumes --rmi all
 ```
 
----
-**NOTE :** 
-Couldn't Additional Challenge due to time constraint
----
+**NOTE:** 
+>Couldn't Additional Challenge due to time constraint
