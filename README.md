@@ -134,12 +134,12 @@ If No data found in source collection for given input date pipeline would termin
 
 ![Step3.2](read-me-images/Step3.2.png)
 
-### Connecting to Postgres from local to check data
-In terminal access the database using psql command
+### Connecting Postgres DB from local to check data
+via command line
 ```
 psql -h localhost -U postgres_user -p 5433 -d postgres_db -W postgres
 ```
-or use pgAdmin/ any other GUI tools
+or via pgAdmin/ any other GUI tools
 ```
 host=localhost
 user=postgres_user
