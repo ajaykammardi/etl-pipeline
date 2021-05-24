@@ -136,6 +136,11 @@ port=5433
 database=postgres_db
 ```
 
+### Running Unit test
+```
+docker exec -it etl-pipeline_airflow-worker_1 pytest -v
+```
+
 ### Cleaning up
 To Stop and delete containers, delete volumes with database data and download images, run:
 ```
