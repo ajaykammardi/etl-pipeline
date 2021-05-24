@@ -12,36 +12,48 @@ required Dimension and Facts table are loaded after running Data validation rule
 ### Project structure explanation
 ```
 etl-pipeline
-│   README.md                                   # Project description
-│   docker-compose.yml                          # Airflow, Postgres and MongoDB containers description 
-│   Dockerfile                                  # Airflow docker file with pymongo installation   
-│   requirements.txt                            # Python dependencies
-│
+|   README.md                                   # Project description
+|   docker-compose.yml                          # Airflow, Postgres and MongoDB containers description 
+|   Dockerfile                                  # Airflow docker file with pymongo installation   
+|   requirements.txt                            # Python dependencies
+|
 └───data                                        # Sample data provided  
 |   | events.json                               # Events sample data        
 |   | organization.json                         # Orgainzation sample data
-│   
+|   
 └───airflow                                     # Airflow home
 |   |               
-│   └───dags
-│   |   │ data_pipeline_template_dag.py         # DAG definition                        
-│   |   │ initial_data_load_dag.py              # DAG definition
+|   └───dags
+|   |   | data_pipeline_template_dag.py         # DAG definition                        
+|   |   | initial_data_load_dag.py              # DAG definition
 |   |   |
 |   └───plugins
-│       │  
-|       └───config                              # Config folder
-|       |   | runtime.cnf                       # Config file
-|       | 
-|       └───helpers
-|       |   | sql_queries.py                    # All sql queries needed
-|       |
-|       └───operators
-|       |   | aggregation_table_load.py         # Loading up aggregate table
-|       |   | data_validation.py                # Data quality checks
-|       |   | dimension_load.py                 # Loading up dimension tables
-|       |   | initial_setup.py                  # Setting up target and source DB
-|       |   | load_data_source_to_stage.py      # Data Extraction from source to stage
-
+|   |   |  
+|   |   └───config                              # Config folder
+|   |   |   | runtime.cnf                       # Config file
+|   |   | 
+|   |   └───helpers
+|   |   |   | sql_queries.py                    # All sql queries needed
+|   |   |
+|   |   └───operators
+|   |   |   | aggregation_table_load.py         # Loading up aggregate table
+|   |   |   | data_validation.py                # Data quality checks
+|   |   |   | dimension_load.py                 # Loading up dimension tables
+|   |   |   | initial_setup.py                  # Setting up target and source DB
+|   |   |   | load_data_source_to_stage.py      # Data Extraction from source to stage
+|   |    
+|   └───tests                                   # Test folder
+|   |   |
+|   |   └───integration                         # Integration test folder
+|   |   |   | test_integration.py               # Integration test file
+|   |   |
+|   |   └───unit                                # Unit testing
+|   |   |   |
+|   |   |   └───dags
+|   |   |   |   | test_dags_structure.py        # Unit level DAG validation
+|   |   |   |
+|   |   |   └───plugins
+|   |   |   |   | test_initial_setup.py        # Unit level plugins validation
 ```
 ### Requirements
 
@@ -153,4 +165,4 @@ docker-compose down --volumes --rmi all
 ```
 
 **NOTE:** 
->Couldn't complete Additional Challenge
+>Couldn't complete Additional Challenge and Unit test cases, as I didn't take TDD approach due to time constraint
