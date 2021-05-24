@@ -138,7 +138,12 @@ database=postgres_db
 
 ### Running Unit test
 ```
-docker exec -it etl-pipeline_airflow-worker_1 pytest -v
+docker exec -it etl-pipeline_airflow-worker_1 pytest -v tests/unit
+```
+
+### Running Integration test
+```
+docker exec -it etl-pipeline_airflow-worker_1 pytest -v tests/integration
 ```
 
 ### Cleaning up
@@ -148,4 +153,4 @@ docker-compose down --volumes --rmi all
 ```
 
 **NOTE:** 
->Couldn't Additional Challenge due to time constraint
+>Couldn't complete Additional Challenge
