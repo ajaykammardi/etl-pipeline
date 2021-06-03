@@ -163,6 +163,3 @@ To Stop and delete containers, delete volumes with database data and download im
 ```
 docker-compose down --volumes --rmi all
 ```
-
-**NOTE:** 
->Couldn't complete Additional Challenge and Unit test cases, as I didn't take TDD approach due to time constraint
